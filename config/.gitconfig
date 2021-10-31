@@ -1,0 +1,97 @@
+[alias]
+    a = add
+    b = branch
+    ch = checkout
+    co = commit
+    cp = cherry-pick
+    d = diff
+    f = fetch
+    g = grep
+    l = log
+    ls = ls-files
+    m = merge
+    pl = pull
+    ps = push
+    rb = rebase
+    rl = reflog
+    rs = reset
+    rt = remote
+    rv = revert
+    s = status
+    aa = add -A
+    ap = add -p
+    au = add -u
+    ba = branch -a
+    br = branch -r
+    bl = branch -l
+    bv = branch -v
+    bvv = branch -vv
+    bav = branch -avv
+    bsu = branch --set-upstream
+    busp = branch --unset-upstream　
+    bm = branch -m
+    bmm = branch -M
+    bc = branch -c
+    bcc = branch -C
+    bd = branch -d
+    bdd = branch -D
+    bmg = branch --merged
+    bnmg = branch --no-merged
+    coa = commit --amend
+    coan = commit --amend --no-edit
+    coam = commit --amend -m
+    coi = commit --interactive
+    com = commit -m
+    cof = commit --allow-empty -m \"Initial commit\"
+    chb = checkout -b
+    cpnx = cherry-pick --no-commit -x
+    dc = diff --cached
+    ds = diff --staged
+    dw = diff --word-diff
+    lg = log --graph
+    lo = log --oneline
+    lp = log --path
+    lt = log --topo-order
+    ll = log --graph --oneline --decorate --date=short --pretty='format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset'
+    la = log --graph --oneline --decorate --branches --tags --remotes
+    mgf = merge --ff
+    mgnf = merge --no-ff
+    psf = push --force-with-lease
+    plf = !git fetch -p && git pull
+    rbi = rebase -i
+    rbc = rebase --continue
+    rbs = rebase --skip
+    rba = rebase --abort
+    rtu = remote update
+    rts = remote show
+    rtp = remote prune
+    rss = reset --soft HEAD~1
+    rsh = reset --hard HEAD~1
+    rsc = !git reset --hard HEAD~1 && git clean -fd
+    rvn = revert --no-commit
+    ss = status --short
+    ssb = status --short --branch
+    publish = "!f() { [ $# = 1 ] && git push -u origin $1 || git push -u origin $(git cur-bname); }; f"
+    unpublish = "!f() { [ $# = 1 ] && git push origin :$(git cur-bname); }; f"
+    alias = !git config -l | grep \"alias\\.\" | sed \"s/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\\t => \\2/\" | sort
+    alias-add = "!f() { [ $# = 3 ] && git config $1 alias.$2 $3 && return 0 || echo \"\\033[33mUsage:\\033[00m git alias-add-(l|g) <new alias name> <original command>\" >&2 && return 1; }; f"
+    alias-add-l = !git alias-add --local
+    alias-add-g = !git alias-add --global
+    alias-rn = "!f() { [ $# = 3 ] && [ $2 != $3 ] && [ ! -z \"$(git config $1 --get alias.$2)\" ] && [ -z \"$(git config $1 alias.$3)\" ] && git config $1 alias.$3 \"$(git config $1 --get alias.$2)\" && git config $1 --unset alias.$2 && return 0 || echo \"\\033[33mUsage:\\033[00m git alias-rn-(l|g) <existing alias name> <new alias name>\\n       The alias you are going to rename must exist and new must not exist.\" >&2 && return 1; }; f"
+    alias-rn-l = !git alias-rn --local
+    alias-rn-g = !git alias-rn --global
+    alias-rm = "!f() { [ $# = 2 ] && git config $1 --unset alias.\"$2\" && return 0 || [ $# = 2 ] && [ -z \"$(git config $1 --get alias.$2)\" ] && echo \"\\033[31mError: [alias.$2] Alias name does not exist.\\033[00m\" && return 1 || echo \"\\033[33mUsage:\\033[00m git alias-dl-(l|g) <remove alias name>\" >&2 && return 1; }; f"
+    alias-rm-l = !git alias-rm --local
+    alias-rm-g = !git alias-rm --global
+    alias-rma-l = !git config --local --remove-section alias
+    alias-rma-g = !git config --global --remove-section alias
+    confls = "!f() { git config $1 -l | grep \"alias\\.\" -v; }; f"
+    confls-l = !git confls --local
+    confls-g = !git confls --global
+    confls-s = !git confls --system
+    confgr = "!f() { [ $# = 2 ] && git config $1 --get-regexp $2 || echo \"\\033[33mUsage:\\033[00m git confgr-(l|g|s) <grep text>\" >&2; }; f"
+    confgr-l = !git confgr --local
+    confgr-g = !git confgr --global
+    confgr-s = !git confgr --system
+    cur-bname = !git symbolic-ref --short HEAD
+
